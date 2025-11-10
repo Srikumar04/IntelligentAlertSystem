@@ -11,6 +11,8 @@ const alertSchema = new mongoose.Schema({
     default: "OPEN",
   },
   metadata: Object,
+  resolvedBy: String,
+  resolvedAt: Date
 });
 
 export default mongoose.model("Alert", alertSchema);

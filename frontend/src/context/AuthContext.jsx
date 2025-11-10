@@ -7,16 +7,42 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) setUser({ token });
+    const role = localStorage.getItem("role");
+    const name = localStorage.getItem("name");
+    const email = localStorage.getItem("email");
+
+    if (token && role) {
+      setUser({
+        token,
+        role,
+        name,
+        email,
+      });
+    }
   }, []);
 
   const login = (data) => {
+    // Save in localStorage
     localStorage.setItem("token", data.token);
-    setUser(data.user);
+    localStorage.setItem("role", data.user.role);
+    localStorage.setItem("name", data.user.name);
+    localStorage.setItem("email", data.user.email);
+
+    // Save in React state
+    setUser({
+      token: data.token,
+      role: data.user.role,
+      name: data.user.name,
+      email: data.user.email,
+    });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+
     setUser(null);
   };
 
